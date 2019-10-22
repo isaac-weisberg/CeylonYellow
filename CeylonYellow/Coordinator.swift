@@ -10,7 +10,7 @@ public protocol CoordinatorNode: CoordinatorProtocol {
     func start() -> Single<Result>
 }
 
-public class Coordinator<Result>: CoordinatorNode {
+open class Coordinator<Result>: CoordinatorNode {
     var tree = [CoordinatorProtocol]()
 
     public init() {
