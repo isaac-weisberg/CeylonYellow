@@ -17,14 +17,14 @@ open class Coordinator<Result>: CoordinatorNode {
 
     }
 
-    public func start() -> Single<Result> {
+    open func start() -> Single<Result> {
         return .never()
     }
 
-    public func startChild<Coordinator: CoordinatorNode>(_ coordinator: Coordinator) -> Single<Coordinator.Result> {
+    open func startChild<Coordinator: CoordinatorNode>(_ coordinator: Coordinator) -> Single<Coordinator.Result> {
 
         return coordinator.start()
-            .do(onSubscribe: {[weak self] in
+            .do(onSubscribe: { [weak self] in
                 guard let self = self else { return }
                 if !self.tree.contains(where: { $0 === coordinator }) {
                     self.tree.append(coordinator)
